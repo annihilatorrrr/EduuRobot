@@ -169,13 +169,13 @@ async def leave_chat(c: Client, m: Message):
 
 @Client.on_message(filters.command(["bot_stats", "stats"], prefix) & sudofilter)
 async def getbotstats(c: Client, m: Message):
-    users_count = dbc.execute("select count(*) from users")
+    users_count = dbc.execute("select count() from users")
     users_count = users_count.fetchone()[0]
-    groups_count = dbc.execute("select count(*) from groups")
+    groups_count = dbc.execute("select count() from groups")
     groups_count = groups_count.fetchone()[0]
-    filters_count = dbc.execute("select count(*) from filters")
+    filters_count = dbc.execute("select count() from filters")
     filters_count = filters_count.fetchone()[0]
-    notes_count = dbc.execute("select count(*) from notes")
+    notes_count = dbc.execute("select count() from notes")
     notes_count = notes_count.fetchone()[0]
 
     await m.reply_text(
