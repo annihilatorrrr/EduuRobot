@@ -9,7 +9,7 @@ import re
 import sys
 import traceback
 from contextlib import redirect_stdout
-from sqlite3 import OperationalError
+from sqlite3 import OperationalError, IntegrityError
 from typing import Union
 
 import speedtest
@@ -150,8 +150,8 @@ async def execsql(c: Client, m: Message):
 
     try:
         ex = dbc.execute(command)
-    except OperationalError as e:
-        return await m.reply_text(f"SQL executed with an error: {e}")
+    except (IntegrityError, OperationalError) as e:
+        return await m.reply_text(f"SQL executed with an error: {e.__class__.__name__}: {e}")
 
     ret = ex.fetchall()
     db.commit()
