@@ -4,6 +4,7 @@
 from typing import Union
 
 from pyrogram import Client, filters
+from pyrogram.enums import ChatType
 from pyrogram.types import (
     CallbackQuery,
     InlineKeyboardButton,
@@ -12,13 +13,13 @@ from pyrogram.types import (
 )
 
 import eduu
-from eduu.config import prefix
+from eduu.config import PREFIXES
 from eduu.utils import commands
 from eduu.utils.localization import use_chat_lang
 
 
 # Using a low priority group so deeplinks will run before this and stop the propagation.
-@Client.on_message(filters.command("start", prefix), group=2)
+@Client.on_message(filters.command("start", PREFIXES), group=2)
 @Client.on_callback_query(filters.regex("^start_back$"))
 @use_chat_lang()
 async def start(c: Client, m: Union[Message, CallbackQuery], strings):
@@ -29,7 +30,7 @@ async def start(c: Client, m: Union[Message, CallbackQuery], strings):
         msg = m
         method = msg.reply_text
 
-    if msg.chat.type == "private":
+    if msg.chat.type == ChatType.PRIVATE:
         keyboard = InlineKeyboardMarkup(
             inline_keyboard=[
                 [

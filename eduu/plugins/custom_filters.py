@@ -4,9 +4,10 @@
 import re
 
 from pyrogram import Client, filters
+from pyrogram.enums import ParseMode
 from pyrogram.types import InlineKeyboardMarkup, Message
 
-from eduu.config import prefix
+from eduu.config import PREFIXES
 from eduu.database import db, dbc
 from eduu.utils import button_parser, commands, require_admin, split_quotes
 from eduu.utils.localization import use_chat_lang
@@ -63,7 +64,7 @@ def check_for_filters(chat_id, trigger):
     return False
 
 
-@Client.on_message(filters.command(["filter", "savefilter"], prefix))
+@Client.on_message(filters.command(["filter", "savefilter"], PREFIXES))
 @require_admin(allow_in_private=True)
 @use_chat_lang()
 async def save_filter(c: Client, m: Message, strings):
@@ -135,7 +136,7 @@ async def save_filter(c: Client, m: Message, strings):
     )
 
 
-@Client.on_message(filters.command(["delfilter", "rmfilter", "stop"], prefix))
+@Client.on_message(filters.command(["delfilter", "rmfilter", "stop"], PREFIXES))
 @require_admin(allow_in_private=True)
 @use_chat_lang()
 async def delete_filter(c: Client, m: Message, strings):
@@ -154,7 +155,7 @@ async def delete_filter(c: Client, m: Message, strings):
         )
 
 
-@Client.on_message(filters.command("filters", prefix))
+@Client.on_message(filters.command("filters", PREFIXES))
 @use_chat_lang()
 async def get_all_filter(c: Client, m: Message, strings):
     chat_id = m.chat.id
@@ -188,7 +189,7 @@ async def serve_filter(c: Client, m: Message):
                 await targeted_message.reply_text(
                     data,
                     quote=True,
-                    parse_mode="md",
+                    parse_mode=ParseMode.MARKDOWN,
                     reply_markup=InlineKeyboardMarkup(button)
                     if len(button) != 0
                     else None,
@@ -198,7 +199,7 @@ async def serve_filter(c: Client, m: Message):
                     filter_s[3],
                     quote=True,
                     caption=data if not None else None,
-                    parse_mode="md",
+                    parse_mode=ParseMode.MARKDOWN,
                     reply_markup=InlineKeyboardMarkup(button)
                     if len(button) != 0
                     else None,
@@ -208,7 +209,7 @@ async def serve_filter(c: Client, m: Message):
                     filter_s[3],
                     quote=True,
                     caption=data if not None else None,
-                    parse_mode="md",
+                    parse_mode=ParseMode.MARKDOWN,
                     reply_markup=InlineKeyboardMarkup(button)
                     if len(button) != 0
                     else None,
@@ -218,7 +219,7 @@ async def serve_filter(c: Client, m: Message):
                     filter_s[3],
                     quote=True,
                     caption=data if not None else None,
-                    parse_mode="md",
+                    parse_mode=ParseMode.MARKDOWN,
                     reply_markup=InlineKeyboardMarkup(button)
                     if len(button) != 0
                     else None,
@@ -228,7 +229,7 @@ async def serve_filter(c: Client, m: Message):
                     filter_s[3],
                     quote=True,
                     caption=data if not None else None,
-                    parse_mode="md",
+                    parse_mode=ParseMode.MARKDOWN,
                     reply_markup=InlineKeyboardMarkup(button)
                     if len(button) != 0
                     else None,
@@ -238,7 +239,7 @@ async def serve_filter(c: Client, m: Message):
                     filter_s[3],
                     quote=True,
                     caption=data if not None else None,
-                    parse_mode="md",
+                    parse_mode=ParseMode.MARKDOWN,
                     reply_markup=InlineKeyboardMarkup(button)
                     if len(button) != 0
                     else None,
